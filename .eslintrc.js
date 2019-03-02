@@ -38,6 +38,7 @@ module.exports = {
     "no-new": ["off", "never"],
     "padded-blocks": ["off", "never"],
     "comma-dangle": ["off", "never"],
-    "comma-spacing": ["off", "never"]
+    "comma-spacing": ["off", "never"],
+    "arrow-spacing": ["off", { "before": false, "after": false }]
   }
 }

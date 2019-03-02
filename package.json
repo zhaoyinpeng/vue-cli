@@ -74,7 +74,7 @@
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.1",
     "vue-template-compiler": "^2.5.2",
-    "vuex": "^3.0.1",
+    "vuex": "^3.1.0",
     "webpack": "^3.6.0",
     "webpack-bundle-analyzer": "^2.9.0",
     "webpack-dev-server": "^2.9.1",
@@ -88,5 +88,18 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": ".eslintrc.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhaoyinpeng/vue-cli.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhaoyinpeng/vue-cli/issues"
+  },
+  "homepage": "https://github.com/zhaoyinpeng/vue-cli#readme"
 }

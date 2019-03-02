@@ -10,6 +10,7 @@ import vuexpage from './pages/vuex.vue'
 import technologyTree from './pages/technologyTree.vue'
 import designModule from './pages/technology/designModule.vue'
 import cookie from './pages/technology/cookie.vue'
+import canvas from './pages/technology/canvas.vue'
 import xss from './pages/technology/xss.vue'
 import websocket from './pages/technology/websocket.vue'
 // 要告诉 vue 使用 vueRouter
@@ -50,6 +51,9 @@ const routes = [{
     }, {
       path: 'cookie',
       component: cookie
+    }, {
+      path: 'canvas',
+      component: canvas
     }, {
       path: 'xss',
       component: xss

@@ -21,6 +21,9 @@
           name:'cookie',
           url:'/technologyTree/cookie'
         },{
+          name:'canvas',
+          url:'/technologyTree/canvas'
+        },{
           name:'xss',
           url:'/technologyTree/xss'
         },{
