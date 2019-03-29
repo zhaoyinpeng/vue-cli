@@ -13,6 +13,7 @@ import cookie from './pages/technology/cookie.vue'
 import canvas from './pages/technology/canvas.vue'
 import xss from './pages/technology/xss.vue'
 import websocket from './pages/technology/websocket.vue'
+import mapboxgl from './pages/technology/mapbox_gl.vue'
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter)
 const routes = [{
@@ -60,6 +61,9 @@ const routes = [{
     }, {
       path: 'websocket',
       component: websocket
+    }, {
+      path: 'mapboxgl',
+      component: mapboxgl
     }]
   },
   {

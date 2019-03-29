@@ -29,6 +29,9 @@
         },{
           name:'websocket',
           url:'/technologyTree/websocket'
+        },{
+          name:'mapbox-gl',
+          url:'/technologyTree/mapboxgl'
         }]
       }
     },
