@@ -32,6 +32,15 @@
         },{
           name:'mapbox-gl',
           url:'/technologyTree/mapboxgl'
+        },{
+          name:'m1',
+          url:'/technologyTree/m1'
+        },{
+          name:'m2',
+          url:'/technologyTree/m2'
+        },{
+          name:'m3',
+          url:'/technologyTree/m3'
         }]
       }
     },

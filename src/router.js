@@ -14,6 +14,7 @@ import VueRouter from 'vue-router'
 // import xss from './pages/technology/xss.vue'
 // import websocket from './pages/technology/websocket.vue'
 // import mapboxgl from './pages/technology/mapbox_gl.vue'
+let getTestBuild = componentName => resolve => require(['./pages/technology/testBuild/m.js'], components => resolve(components[componentName])) //这个是个函数啊！！！
 // 要告诉 vue 使用 vueRouter
 Vue.use(VueRouter)
 const routes = [{
@@ -64,6 +65,15 @@ const routes = [{
   }, {
     path: 'mapboxgl',
     component: resolve => require(['./pages/technology/mapbox_gl.vue'], resolve)
+  }, {
+    path: 'm1',
+    component: getTestBuild('m1')
+  }, {
+    path: 'm2',
+    component: getTestBuild('m2')
+  }, {
+    path: 'm3',
+    component: getTestBuild('m3')
   }]
 },
 {
