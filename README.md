@@ -33,4 +33,13 @@ npm test
 3.vue 加载css文件的两种方式 import @import（暂未遇到路径不对问题）<br>  
 4.vue 路由懒加载实现某几个模块合并一起打包，从而减少小js数量（按路由，打包后依然适用）<br> 
 
+```
+#计划解决问题
+#1.vue中小图片自动转换成文字格式
+#2.less,sess在vue中使用
+#3.vue 中使用svg图片
+#4.分模块懒加载css文件
+#5.合并加载多个css文件
+#6.尝试找其他懒加载js模块的方法
+```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="m1">
     测试打包模块1
   </div>
 </template>
@@ -13,6 +13,8 @@
     methods: {}
   }
 </script>
-<style>
-
+<style scoped>
+  #m1{
+    color: red;
+  }
 </style>
