@@ -4,8 +4,8 @@
     <div id="coordinates"></div>
     <div id="info"></div>
     <div id="buttonbox">
-      <button id="addClick" @click="addClick">添加点击事件</button>
-      <button id="removeClick" @click="removeClick">取消点击事件</button>
+      <!-- <button id="addClick" @click="addClick">添加点击事件</button> -->
+      <!-- <button id="removeClick" @click="removeClick">取消点击事件</button> -->
       <button id="addgeojson" @click="addgeojson">添加geojson数据</button>
       <button id="delgeojson" @click="delgeojson">删除geojson数据</button>
       <button id="addIcon" @click="addIcon">添加icon图片到地图上</button>
@@ -15,6 +15,7 @@
 </template>
 <script>
 import mapboxgl from "mapbox-gl";
+import MapboxglDraw from 'mapbox-gl-draw';
 export default {
   data() {
     return {
@@ -26,6 +27,7 @@ export default {
   mounted() {
     this.init();
     console.log(this.map);
+    console.log(MapboxglDraw);
   },
   methods: {
     // 初始化
@@ -80,6 +82,14 @@ export default {
       var _this = this;
       this.map.on("load", function(e) {
         _this.initSource();
+        var draw = new MapboxglDraw({
+          displayControlsDefault: false,
+          controls: {
+            polygon: true,
+            trash: true
+          }
+        });
+        _this.map.addControl(draw);
       });
     },
     initSource() {
@@ -143,7 +153,7 @@ export default {
       }
     },
     addIcon() {
-        let _this = this;
+      let _this = this;
       _this.map.loadImage(
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png",
         function(error, image) {
@@ -176,13 +186,16 @@ export default {
       );
     },
     getAllLayer() {
-        console.log(this.map.getStyle().layers);
+      console.log(this.map.getStyle().layers);
     }
   }
 };
 </script>
 <style>
-@import url("https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css");
+/* @import url("https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css"); */
+@import url("../../../node_modules/mapbox-gl/dist/mapbox-gl.css");
+/* @import url("https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css"); */
+@import url("./css/mapbox-gl-draw.css");
 #mapboxgl {
   width: 700px;
   height: 500px;
