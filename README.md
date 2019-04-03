@@ -27,4 +27,9 @@ npm run e2e
 npm test
 ```
 
+2019/4/3 
+1.研究vue-cli npm run build 本地打包方法（本地可看）
+2.vue 路由懒加载实现分模块加载不同js文件（按路由，打包后依然适用）
+3.vue 加载css文件的两种方式 import @import（暂未遇到路径不对问题）
+
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
