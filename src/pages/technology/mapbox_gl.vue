@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <div id="t">
     <div id="mapboxgl" ref="basicMapbox"></div>
     <div id="coordinates"></div>
     <div id="info"></div>
+    <div id="testBox">
+      <div id="test">测试</div>
+    </div>
     <div id="buttonbox">
       <!-- <button id="addClick" @click="addClick">添加点击事件</button> -->
       <!-- <button id="removeClick" @click="removeClick">取消点击事件</button> -->
@@ -16,6 +19,7 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import MapboxglDraw from 'mapbox-gl-draw';
+// import * as Turf from '@turf/turf'
 export default {
   data() {
     return {
@@ -28,6 +32,7 @@ export default {
     this.init();
     console.log(this.map);
     console.log(MapboxglDraw);
+    // console.log(Turf);
   },
   methods: {
     // 初始化
@@ -90,6 +95,48 @@ export default {
           }
         });
         _this.map.addControl(draw);
+
+        _this.$nextTick(()=>{
+          _this.moveDom();
+        });
+      });
+      this.map.on('resize', function(e){
+        console.log('resize' + new Date().getTime());
+        _this.moveDom();
+      });
+      // this.map.on('movestart', function(e){
+      //   console.log('movestart' + new Date().getTime());
+      // });
+      this.map.on('move', function(e){
+        console.log('move' + new Date().getTime());
+        _this.moveDom();
+      });
+      this.map.on('moveend', function(e){
+        console.log('moveend' + new Date().getTime());
+        _this.moveDom();
+      });
+      // this.map.on('dragstart', function(e){
+      //   console.log('dragstart' + new Date().getTime());
+      // });
+      // this.map.on('drag', function(e){
+      //   console.log('drag' + new Date().getTime());
+      // });
+      this.map.on('dragend', function(e){
+        console.log('drag' + new Date().getTime());
+        _this.moveDom();
+      });
+      // this.map.on('render', function(e){
+      //   console.log('render' + new Date().getTime());
+      // });
+      // this.map.on('pitchstart', function(e){
+      //   console.log('pitchstart' + new Date().getTime());
+      // });
+      // this.map.on('pitch', function(e){
+      //   console.log('pitch' + new Date().getTime());
+      // });
+      this.map.on('pitchend', function(e){
+        console.log('pitchend' + new Date().getTime());
+        _this.moveDom();
       });
     },
     initSource() {
@@ -187,7 +234,14 @@ export default {
     },
     getAllLayer() {
       console.log(this.map.getStyle().layers);
+    },
+    moveDom() {
+      let a = document.getElementById('test');
+      let xy = this.map.project([-68.13734351262877, 45.137451890638886]);
+      a.style.top = xy.y + 'px';
+      a.style.left = xy.x + 'px';
     }
+
   }
 };
 </script>
@@ -213,5 +267,27 @@ export default {
   line-height: 18px;
   border-radius: 3px;
   display: none;
+}
+#t{
+  position: relative;
+}
+#testBox{
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#test{
+  border: 1px solid #ccc;
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: skyblue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 }
 </style>
