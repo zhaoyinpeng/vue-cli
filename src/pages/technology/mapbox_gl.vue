@@ -19,7 +19,7 @@
 <script>
 import mapboxgl from "mapbox-gl";
 import MapboxglDraw from 'mapbox-gl-draw';
-// import * as Turf from '@turf/turf'
+import * as Turf from '@turf/turf'
 export default {
   data() {
     return {
@@ -32,7 +32,7 @@ export default {
     this.init();
     console.log(this.map);
     console.log(MapboxglDraw);
-    // console.log(Turf);
+    console.log(Turf);
   },
   methods: {
     // 初始化
@@ -77,7 +77,10 @@ export default {
       this.map.on("click", function(e) {
         document.getElementById("info").innerHTML =
           JSON.stringify(e.point) + "<br />" + JSON.stringify(e.lngLat);
-        marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
+        // marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
+        var features = _this.map.queryRenderedFeatures(e.point);
+        console.log(features);
+        debugger;
       });
       //   this.map.addControl(
       //     new mapboxgl.MapboxGeocoder({
@@ -175,6 +178,10 @@ export default {
           }
         };
         this.map.addSource("geoLayerSource", this.geoLayerSource);
+        let center = Turf.centerOfMass(this.geoLayerSource.data);//用turf获取面的中心位置
+        let xy = this.map.project(center.geometry.coordinates);//获取地图经纬度对应的屏幕像素位置
+        debugger;
+
       }
     },
     addgeojson() {
