@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const webpack = require("webpack")
+//配置绝对路径
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -33,9 +34,11 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
+    //配置路径名称
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      'pages': resolve('src/pages/')
     }
   },
   module: {
@@ -55,7 +58,7 @@ module.exports = {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
+          limit: 16000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
         }
       },

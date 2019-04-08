@@ -18,8 +18,8 @@
 </template>
 <script>
 import mapboxgl from "mapbox-gl";
-import MapboxglDraw from 'mapbox-gl-draw';
-import * as Turf from '@turf/turf'
+import MapboxglDraw from "mapbox-gl-draw";
+import * as Turf from "@turf/turf";
 export default {
   data() {
     return {
@@ -79,6 +79,14 @@ export default {
           JSON.stringify(e.point) + "<br />" + JSON.stringify(e.lngLat);
         // marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
         var features = _this.map.queryRenderedFeatures(e.point);
+        features.forEach(feature => {
+          console.log(feature);
+          if (feature.source === "geoLayerSource") {
+            let center = Turf.centerOfMass(feature.geometry); //用turf获取面的中心位置
+            let xy = this.map.project(center.geometry.coordinates); //获取地图经纬度对应的屏幕像素位置
+            console.log(xy);
+          }
+        });
         console.log(features);
         debugger;
       });
@@ -99,23 +107,23 @@ export default {
         });
         _this.map.addControl(draw);
 
-        _this.$nextTick(()=>{
+        _this.$nextTick(() => {
           _this.moveDom();
         });
       });
-      this.map.on('resize', function(e){
-        console.log('resize' + new Date().getTime());
+      this.map.on("resize", function(e) {
+        console.log("resize" + new Date().getTime());
         _this.moveDom();
       });
       // this.map.on('movestart', function(e){
       //   console.log('movestart' + new Date().getTime());
       // });
-      this.map.on('move', function(e){
-        console.log('move' + new Date().getTime());
+      this.map.on("move", function(e) {
+        console.log("move" + new Date().getTime());
         _this.moveDom();
       });
-      this.map.on('moveend', function(e){
-        console.log('moveend' + new Date().getTime());
+      this.map.on("moveend", function(e) {
+        console.log("moveend" + new Date().getTime());
         _this.moveDom();
       });
       // this.map.on('dragstart', function(e){
@@ -124,8 +132,8 @@ export default {
       // this.map.on('drag', function(e){
       //   console.log('drag' + new Date().getTime());
       // });
-      this.map.on('dragend', function(e){
-        console.log('drag' + new Date().getTime());
+      this.map.on("dragend", function(e) {
+        console.log("drag" + new Date().getTime());
         _this.moveDom();
       });
       // this.map.on('render', function(e){
@@ -137,8 +145,8 @@ export default {
       // this.map.on('pitch', function(e){
       //   console.log('pitch' + new Date().getTime());
       // });
-      this.map.on('pitchend', function(e){
-        console.log('pitchend' + new Date().getTime());
+      this.map.on("pitchend", function(e) {
+        console.log("pitchend" + new Date().getTime());
         _this.moveDom();
       });
     },
@@ -178,10 +186,10 @@ export default {
           }
         };
         this.map.addSource("geoLayerSource", this.geoLayerSource);
-        let center = Turf.centerOfMass(this.geoLayerSource.data);//用turf获取面的中心位置
-        let xy = this.map.project(center.geometry.coordinates);//获取地图经纬度对应的屏幕像素位置
+        let center = Turf.centerOfMass(this.geoLayerSource.data); //用turf获取面的中心位置
+        let xy = this.map.project(center.geometry.coordinates); //获取地图经纬度对应的屏幕像素位置
+        console.log(xy);
         debugger;
-
       }
     },
     addgeojson() {
@@ -243,12 +251,11 @@ export default {
       console.log(this.map.getStyle().layers);
     },
     moveDom() {
-      let a = document.getElementById('test');
+      let a = document.getElementById("test");
       let xy = this.map.project([-68.13734351262877, 45.137451890638886]);
-      a.style.top = xy.y + 'px';
-      a.style.left = xy.x + 'px';
+      a.style.top = xy.y + "px";
+      a.style.left = xy.x + "px";
     }
-
   }
 };
 </script>
@@ -275,17 +282,17 @@ export default {
   border-radius: 3px;
   display: none;
 }
-#t{
+#t {
   position: relative;
 }
-#testBox{
+#testBox {
   width: 0px;
   height: 0px;
   position: absolute;
   top: 0;
   left: 0;
 }
-#test{
+#test {
   border: 1px solid #ccc;
   height: 40px;
   width: 40px;
