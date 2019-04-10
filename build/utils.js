@@ -56,6 +56,7 @@ exports.cssLoaders = function (options) {
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
+  // ===========感觉这里时扩展sass和less方法的地方============
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),

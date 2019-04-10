@@ -94,9 +94,15 @@ module.exports = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('common.js'),
+    //引入jquery插件
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
+    }),
+    //dll 预先打包依赖插件
+    new webpack.DllReferencePlugin({
+      context: path.resolve(__dirname,'..'),
+      manifest: require('./manifest.json')
     })
   ]
 }

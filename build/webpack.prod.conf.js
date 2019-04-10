@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const utils = require('./utils')
+// const glob = require('globby')
 const webpack = require('webpack')
 const config = require('../config')
 const merge = require('webpack-merge')
@@ -15,7 +16,29 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
 
+
+//   // CSS入口配置
+// let CSS_PATH = {
+//   css: {
+//     pattern: ['./src/**/[^_]*.less', '!./src/old/**/*.less'],
+//     src: path.join(__dirname, 'src'),
+//     dst: path.resolve(__dirname, 'static/build/webpack')
+//   }
+// }
+
+// // 遍历除所有需要打包的CSS文件路径
+// function getCSSEntries(config) {
+//   var fileList = glob.sync(config.pattern)
+//   return fileList.reduce(function(previous, current) {
+//     var filePath = path.parse(path.relative(config.src, current))
+//     var withoutSuffix = path.join(filePath.dir, filePath.name)
+//     previous[withoutSuffix] = path.resolve(__dirname, current)
+//     return previous
+//   }, {})
+// }
+
 const webpackConfig = merge(baseWebpackConfig, {
+  //返回的基本都是 https://www.npmjs.com/package/extract-text-webpack-plugin 这里面的格式 运用的utils.styleLoaders方法，返回参数
   module: {
     rules: utils.styleLoaders({
       sourceMap: config.build.productionSourceMap,
@@ -23,6 +46,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       usePostCSS: true
     })
   },
+  // entry: getCSSEntries(CSS_PATH.css),
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
@@ -46,11 +70,15 @@ const webpackConfig = merge(baseWebpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css'),
+      // ===============filename控制生成后的名称===============
+      // filename: utils.assetsPath('css/style.css'), 
       // Setting the following option to `false` will not extract CSS from codesplit chunks.
       // Their CSS will instead be inserted dynamically with style-loader when the codesplit chunk has been loaded by webpack.
       // It's currently set to `true` because we are seeing that sourcemaps are included in the codesplit bundle as well when it's `false`, 
       // increasing file size: https://github.com/vuejs-templates/webpack/issues/1110
-      allChunks: true,
+      //===============测试如果为true则打包后css文件放入一个css文件中，包含@import引入的内部css文件===============
+      //===============如果为false 则每个模块单独写入style标签，样式嵌入了js文件中 ，我认为===============
+      allChunks: true, 
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.

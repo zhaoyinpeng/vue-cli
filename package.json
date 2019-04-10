@@ -12,7 +12,8 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "json": "json-server db.json --port 3003"
+    "json": "json-server db.json --port 3003",
+    "dll": "webpack -p --progress --config build/webpack.dll.config.js"
   },
   "dependencies": {
     "@turf/turf": "^5.1.6",

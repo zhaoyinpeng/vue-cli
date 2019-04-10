@@ -33,12 +33,16 @@ npm test
 2.vue 路由懒加载实现分模块加载不同js文件（按路由，打包后依然适用）<br>  
 3.vue 加载css文件的两种方式 import @import（暂未遇到路径不对问题）<br>  
 4.vue 路由懒加载实现某几个模块合并一起打包，从而减少小js数量（按路由，打包后依然适用）<br> 
-```
-
-```
 #2019/4/8
 1.vue中小图片自动转换成文字格式<br>  
 2.使用配置别名 以后就可以直接引用该位置 相对文件位置
+
+#2019/4/9
+1.测试使用extract-text-webpack-plugin插件分模块打包css，失败
+
+#2019/4/10
+1.vue通过DllPlugin插件优化打包性能，减少打包时间（基于vue-cli） 查看此博客https://blog.csdn.net/przlovecsdn/article/details/82761912
+
 ```
 
 ```
