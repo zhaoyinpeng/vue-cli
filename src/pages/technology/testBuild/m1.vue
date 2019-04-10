@@ -1,6 +1,7 @@
 <template>
   <div id="m1">
-    <h2>测试打包模块1</h2>
+    <h2>用于测试js合并多个vue进行测试打包</h2>
+    <hr>
     <h2>样式时单独的scoped，用于测试单独打包css文件，其中有好多无用样式。</h2>
     <div class="box1">
       <h1>css回退样式</h1>

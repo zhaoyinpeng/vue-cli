@@ -3,6 +3,7 @@
     <h4>{{title}}</h4>
     <button @click="setCookie">添加cookie</button>
     <button @click="getCookie">获取cookie</button>
+    <h3>图片引入</h3>
     <img src="./img/a.png" alt>
     <img :src="imgUrl" alt>
     <img style="width:200px;" :src="imgUrl2" alt>
