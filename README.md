@@ -25,6 +25,9 @@ npm run e2e
 
 # run all tests
 npm test
+
+# run dllplugin 加快打包方式，分离插件
+npm run dll
 ```
 
 ```
@@ -53,6 +56,7 @@ npm test
 #5.合并加载多个css文件
 #6.尝试找其他懒加载js模块的方法
 #7.vue 多入口方法
+#8.vue拖拽方法
 
 ```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

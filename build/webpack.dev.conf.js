@@ -52,11 +52,21 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
+    //多页面入口注释掉下面的html编译
+    /* 注释这个区域的文件 ------------- 开始 */
     new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'index.html',
-      inject: true
+     filename: 'index.html',
+     template: 'index.html',
+     inject: true,
+     chunks: ['manifest','vendor','app']
     }),
+    new HtmlWebpackPlugin({
+      filename: 'entry.html',
+      template: 'entry.html',
+      inject: true,
+      chunks: ['manifest','vendor','entry']
+     }),
+    /* 注释这个区域的文件 ------------- 结束 */
     // copy custom static assets
     new CopyWebpackPlugin([
       {
@@ -66,6 +76,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       }
     ])
   ]
+  // ].concat(utils.htmlPlugin())
 })
 
 module.exports = new Promise((resolve, reject) => {
