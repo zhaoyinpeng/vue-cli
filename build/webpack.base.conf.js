@@ -22,12 +22,12 @@ const createLintingRule = () => ({
 
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: './src/main.js',
-    entry: './src/entry.js'
-  },
+  // entry: {
+  //   app: './src/main.js',
+  //   entry: './src/entry.js'
+  // },
   //多页面入口文件
-  // entry: utils.entries(),
+  entry: utils.entries(),
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -96,16 +96,16 @@ module.exports = {
     child_process: 'empty'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('common.js'),
     //引入jquery插件
     new webpack.ProvidePlugin({
       jQuery: "jquery",
       $: "jquery"
     }),
-    //dll 预先打包依赖插件
-    new webpack.DllReferencePlugin({
-      context: path.resolve(__dirname,'..'),
-      manifest: require('./manifest.json')
-    })
+    // dll 预先打包依赖插件
+    // new webpack.DllReferencePlugin({
+    //   context: path.resolve(__dirname,'..'),
+    //   manifest: require('./manifest.json')
+    // }),
+    // new webpack.optimize.CommonsChunkPlugin('common.js')
   ]
 }

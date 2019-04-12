@@ -1,6 +1,6 @@
 <template>
   <div id="App">
-    <router-view></router-view>
+    moreEntry 模块
   </div>
 </template>
 <script>
