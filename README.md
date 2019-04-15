@@ -55,6 +55,8 @@ npm run dll
 （2）new webpack.optimize.CommonsChunkPlugin('common.js') 这个引入插件会导致npm run dev包webpackJsonp 错误，原因估计为跟HtmlWebpackPlugin html渲染插件中 chunks配置有关。
 （3）多入口跟DllPlugin插件有部分冲突，如果各个模块都需要加载公共插件，可以使用，但要在各个模块html入口中引入vendor.dll.js。我觉的如果非硬性要求，不使用DllPlugin插件，可以在各模块html中直接引插件js。
 
+#2019/4/15
+1.vue实现简单轮播图效果（home.vue）
 ```
 
 ```
