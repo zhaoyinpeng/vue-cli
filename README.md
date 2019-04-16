@@ -45,7 +45,7 @@ npm run dll
 
 #2019/4/10
 1.vue通过DllPlugin插件优化打包性能，减少打包时间（基于vue-cli） 查看此博客https://blog.csdn.net/przlovecsdn/article/details/82761912
-2.less,sess在vue中使用
+2.less,sess在vue中使用 （1）npm install less （2）直接style 中添加lang='less'
 3.vue 中使用svg图片
 4.vue-cli 搭建流程探索 m3模块（探索中）
 
@@ -62,7 +62,6 @@ npm run dll
 #4.分模块懒加载css文件 webpack.prod.conf.js配置模块（探索中） 2019/4/9
 #5.合并加载多个css文件
 #6.尝试找其他懒加载js模块的方法
-#7.vue 多入口方法
 #8.vue拖拽方法
 
 ```
