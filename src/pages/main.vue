@@ -6,7 +6,7 @@
     </p>
     <h1>{{ msg }}</h1>
     <p>
-      <router-link to="/home">home</router-link>
+      <router-link to="/home">vue骚技术+动态效果</router-link>
       <router-link to="/about">about</router-link>
       <router-link :to="{name:'关于',param:{id:123}}">关于</router-link>
       <router-link :to="{name:'vuex',param:{id:123}}">vuex</router-link>
