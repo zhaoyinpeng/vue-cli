@@ -1,18 +1,20 @@
 <template>
   <div id="t">
-    <div id="mapboxgl" ref="basicMapbox"></div>
-    <div id="coordinates"></div>
-    <div id="info"></div>
-    <div id="testBox">
+    <div class="mapboxgl-box">
+      <div id="mapboxgl" ref="basicMapbox"></div>
       <div id="test">测试</div>
     </div>
+    <div id="coordinates"></div>
+    <div id="info"></div>
     <div id="buttonbox">
-      <!-- <button id="addClick" @click="addClick">添加点击事件</button> -->
-      <!-- <button id="removeClick" @click="removeClick">取消点击事件</button> -->
+      <button id="addClick" @click="addMapClick">添加地图图层点击事件</button>
+      <button id="removeClick" @click="removeMapClick">取消地图图层点击事件</button>
       <button id="addgeojson" @click="addgeojson">添加geojson数据</button>
       <button id="delgeojson" @click="delgeojson">删除geojson数据</button>
       <button id="addIcon" @click="addIcon">添加icon图片到地图上</button>
       <button id="getAllLayer" @click="getAllLayer">获取全部图层信息</button>
+      <button id="changeMapStyle" @click="changeMapStyle">切换地图风格</button>
+      <button id="googleMap" @click="googleMap">切换成谷歌底图</button>
     </div>
   </div>
 </template>
@@ -25,7 +27,8 @@ export default {
     return {
       map: null,
       geoLayer: null,
-      geoLayerSource: null
+      geoLayerSource: null,
+      mapLayerClick: false
     };
   },
   mounted() {
@@ -39,11 +42,9 @@ export default {
     init() {
       mapboxgl.accessToken =
         "pk.eyJ1IjoienlwIiwiYSI6ImNqdHRvbG4ybDA3a2I0ZW4ybGF6ZmNmeGIifQ.jcpGDwXpU8wdHSf9R1GnXA";
-      var coordinates = document.getElementById("coordinates");
       this.map = new mapboxgl.Map({
         container: this.$refs.basicMapbox,
         style: "mapbox://styles/mapbox/streets-v9",
-        // style: "mapbox://styles/mapbox/streets-v10",
         center: [-68.13734351262877, 45.137451890638886], // 设置地图中心
         dragRotate: true, //如果为true，则启用了“旋转框”交互，按住右键进行旋转
         zoom: 2 // 设置地图比例
@@ -61,34 +62,25 @@ export default {
         })
       );
       window.Map = this.map;
-      // 建立一个标记点
-      var marker = new mapboxgl.Marker({
-        draggable: true
-      });
-      function onDragEnd() {
-        var lngLat = marker.getLngLat();
-        coordinates.style.display = "block";
-        coordinates.innerHTML =
-          "Longitude: " + lngLat.lng + "<br />Latitude: " + lngLat.lat;
-      }
-      marker.on("dragend", onDragEnd);
+      // // 建立一个标记点
+      // var marker = new mapboxgl.Marker({
+      //   draggable: true
+      // });
+      // function onDragEnd() {
+      //   var lngLat = marker.getLngLat();
+      //   coordinates.style.display = "block";
+      //   coordinates.innerHTML =
+      //     "Longitude: " + lngLat.lng + "<br />Latitude: " + lngLat.lat;
+      // }
+      // marker.on("dragend", onDragEnd);
 
       // 点击获取经纬度模块&点击标记点
       this.map.on("click", function(e) {
         document.getElementById("info").innerHTML =
           JSON.stringify(e.point) + "<br />" + JSON.stringify(e.lngLat);
-        // marker.setLngLat([e.lngLat.lng, e.lngLat.lat]).addTo(this.map);
-        var features = _this.map.queryRenderedFeatures(e.point);
-        features.forEach(feature => {
-          console.log(feature);
-          if (feature.source === "geoLayerSource") {
-            let center = Turf.centerOfMass(feature.geometry); //用turf获取面的中心位置
-            let xy = this.map.project(center.geometry.coordinates); //获取地图经纬度对应的屏幕像素位置
-            console.log(xy);
-          }
-        });
-        console.log(features);
-        debugger;
+        if (_this.mapLayerClick) {
+          _this.MapLayerClickEvent(e);
+        }
       });
       //   this.map.addControl(
       //     new mapboxgl.MapboxGeocoder({
@@ -115,9 +107,6 @@ export default {
         console.log("resize" + new Date().getTime());
         _this.moveDom();
       });
-      // this.map.on('movestart', function(e){
-      //   console.log('movestart' + new Date().getTime());
-      // });
       this.map.on("move", function(e) {
         console.log("move" + new Date().getTime());
         _this.moveDom();
@@ -126,30 +115,38 @@ export default {
         console.log("moveend" + new Date().getTime());
         _this.moveDom();
       });
-      // this.map.on('dragstart', function(e){
-      //   console.log('dragstart' + new Date().getTime());
-      // });
-      // this.map.on('drag', function(e){
-      //   console.log('drag' + new Date().getTime());
-      // });
       this.map.on("dragend", function(e) {
         console.log("drag" + new Date().getTime());
         _this.moveDom();
       });
-      // this.map.on('render', function(e){
-      //   console.log('render' + new Date().getTime());
-      // });
-      // this.map.on('pitchstart', function(e){
-      //   console.log('pitchstart' + new Date().getTime());
-      // });
-      // this.map.on('pitch', function(e){
-      //   console.log('pitch' + new Date().getTime());
-      // });
       this.map.on("pitchend", function(e) {
         console.log("pitchend" + new Date().getTime());
         _this.moveDom();
       });
     },
+    //添加地图图层点击事件
+    addMapClick() {
+      this.mapLayerClick = true;
+    },
+    //取消地图图层点击事件
+    removeMapClick() {
+      this.mapLayerClick = false;
+    },
+    //地图图层点击事件
+    MapLayerClickEvent(e) {
+      var features = this.map.queryRenderedFeatures(e.point);
+      console.log("所有图层信息");
+      console.log(features);
+      features.forEach(feature => {
+        if (feature.source === "geoLayerSource") {
+          let center = Turf.centerOfMass(feature.geometry); //用turf获取面的中心位置
+          let xy = this.map.project(center.geometry.coordinates); //获取地图经纬度对应的屏幕像素位置
+          console.log("矢量图层矢量中心位置和对应的屏幕位置");
+          console.log(center, xy);
+        }
+      });
+    },
+    //添加矢量图层源
     initSource() {
       if (!this.geoLayerSource) {
         this.geoLayerSource = {
@@ -185,21 +182,22 @@ export default {
             }
           }
         };
-        this.map.addSource("geoLayerSource", this.geoLayerSource);
+        this.map.addSource("geoLayerSource", this.geoLayerSource); //将矢量图层源添加进地图中
         let center = Turf.centerOfMass(this.geoLayerSource.data); //用turf获取面的中心位置
         let xy = this.map.project(center.geometry.coordinates); //获取地图经纬度对应的屏幕像素位置
         console.log(xy);
-        debugger;
       }
     },
+    //地图添加矢量图层
     addgeojson() {
-      //   debugger;
       if (!this.geoLayer) {
         this.geoLayer = {
           id: "maine",
           type: "fill",
-          layout: {},
           source: "geoLayerSource",
+          layout: {
+            
+          },
           paint: {
             "fill-color": "#088",
             "fill-opacity": 0.8
@@ -208,19 +206,21 @@ export default {
         this.map.addLayer(this.geoLayer);
       }
     },
+    //删除矢量图层
     delgeojson() {
       if (this.geoLayer) {
         this.map.removeLayer(this.geoLayer.id);
         this.geoLayer = null;
       }
     },
+    //添加icon进地图
     addIcon() {
       let _this = this;
       _this.map.loadImage(
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png",
         function(error, image) {
           if (error) throw error;
-          _this.map.addImage("cat", image);
+          _this.map.addImage("cat", image); //将图片添加进地图
           _this.map.addLayer({
             id: "points",
             type: "symbol",
@@ -247,14 +247,47 @@ export default {
         }
       );
     },
+    //获取地图所有图层
     getAllLayer() {
       console.log(this.map.getStyle().layers);
     },
+    //随地图移动dom
     moveDom() {
       let a = document.getElementById("test");
       let xy = this.map.project([-68.13734351262877, 45.137451890638886]);
       a.style.top = xy.y + "px";
       a.style.left = xy.x + "px";
+    },
+    //切换地图风格
+    changeMapStyle() {
+      this.map.setStyle("mapbox://styles/mapbox/dark-v9");
+    },
+    //切换谷歌底图
+    googleMap() {
+      this.map.setStyle({
+        version: 8,
+        sources: {
+          "raster-tiles": {
+            type: "raster",
+            tiles: [
+              // "http://t4.tianditu.com/DataServer?T=vec_w&x={x}&y={y}&l={z}"
+              // "https://webrd03.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8",
+              "https://mt1.google.cn/maps/vt?lyrs=s%40721&hl=zh-CN&gl=CN&x={x}&y={y}&z={z}"
+              //   "http://c.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            ],
+            tileSize: 256
+          }
+        },
+        layers: [
+          {
+            id: "simple-tiles",
+            type: "raster",
+            source: "raster-tiles",
+            minzoom: 0,
+            maxzoom: 18
+          }
+        ]
+      });
     }
   }
 };
@@ -264,6 +297,11 @@ export default {
 @import url("../../../node_modules/mapbox-gl/dist/mapbox-gl.css");
 /* @import url("https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.9/mapbox-gl-draw.css"); */
 @import url("./css/mapbox-gl-draw.css");
+.mapboxgl-box {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+}
 #mapboxgl {
   width: 700px;
   height: 500px;
@@ -285,13 +323,6 @@ export default {
 #t {
   position: relative;
 }
-#testBox {
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 #test {
   border: 1px solid #ccc;
   height: 40px;
@@ -304,4 +335,5 @@ export default {
   left: 0;
   background-color: #fff;
 }
+
 </style>

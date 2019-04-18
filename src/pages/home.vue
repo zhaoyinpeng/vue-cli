@@ -10,10 +10,17 @@
     </p>
     <router-view></router-view>
     <div class="swiper-box">
-      <div :key="index" v-for="(item,index) in dataList" :class="calculate(item)" @mouseenter="mouseEnter(item)" @mouseleave="autoPlay()">{{item.bgc}}</div>
+      <div
+        :key="index"
+        v-for="(item,index) in dataList"
+        :class="calculate(item)"
+        @mouseenter="mouseEnter(item)"
+        @mouseleave="autoPlay()"
+      >{{item.bgc}}</div>
       <span class="swiper-btn prev" @click="prev()"></span>
       <span class="swiper-btn next" @click="next()"></span>
     </div>
+    <iframe :src="iframeUrl" frameborder="0" width="600px" height="700px"></iframe>
   </div>
 </template>
 <script>
@@ -35,16 +42,19 @@ export default {
           index: 3,
           bgc: "green"
         }
-      ]
+      ],
+      iframeUrl: ''
     };
   },
   mounted() {
     this.autoPlay();
+    this.getURL('https://mp.weixin.qq.com/s/VVdHf0Zme9fr7D7UVhEMfg');
   },
   methods: {
     calculate(item) {
       return "s" + item.index;
     },
+    // 轮播
     next() {
       this.stopPlay();
       this.dataList.forEach((element, i) => {
@@ -80,8 +90,31 @@ export default {
       if (item.index === 2) {
         return;
       } else {
-        
       }
+    },
+    // 轮播结束
+
+    // iframe嵌入微信页面
+    getURL(url) {
+      let http = window.location.protocol === "http:" ? "http:" : "https:";
+      let realurl = http + "//cors-anywhere.herokuapp.com/" + url;
+      let that = this;
+      $.ajax({
+        type: "get",
+        url: realurl,
+        success: function(res) {
+          if (res) {
+            let data = res;
+            data = data.replace(/data-src/g, "src");
+            let htmlSrc = "data:text/html;charset=utf-8," + data; // 解析码解决乱码
+            that.iframeUrl = htmlSrc;
+          }
+        },
+        error: function(err) {
+          console.log(err);
+          Toast("好像出错了...");
+        }
+      });
     }
   }
 };
@@ -91,7 +124,7 @@ export default {
   width: 800px;
   height: 500px;
   position: relative;
-  span{
+  span {
     width: 50px;
     height: 50px;
     background-color: coral;
@@ -99,10 +132,10 @@ export default {
     top: calc(50% - 25px);
     z-index: 10;
   }
-  .next{
+  .next {
     right: 0px;
   }
-  .prev{
+  .prev {
     left: 0px;
   }
 
@@ -132,4 +165,3 @@ export default {
   }
 }
 </style>
-
