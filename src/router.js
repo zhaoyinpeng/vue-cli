@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store/index.js'
 // // 引入组件
 // import main from './pages/main.vue'
 // import home from './pages/home.vue'
@@ -103,5 +104,12 @@ const routes = [{
 var router = new VueRouter({
   // mode: 'history',
   routes: routes
+})
+router.beforeEach((to, from, next)=> {
+  // ...
+  if (store) {
+    store.dispatch('setNavByRouter',to.path);
+  }
+  next();
 })
 export default router

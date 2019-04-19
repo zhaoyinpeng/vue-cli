@@ -41,7 +41,7 @@
     <transition-group tag="div" class="container">
       <div
         class="item"
-        v-for="(item,index) in items"
+        v-for="item in items"
         :key="item.key"
         :style="{background:item.color}"
         draggable="true"
@@ -54,7 +54,6 @@
   </div>
 </template>
 <script>
-import { explode } from "@turf/turf";
 export default {
   data() {
     return {
@@ -155,9 +154,8 @@ export default {
     },
     mouseEnter(item) {
       this.stopPlay();
-      if (item.index === 2) {
-        return;
-      } else {
+      if (item.index !== 2) {
+        console.log(item);
       }
     },
     // 轮播结束

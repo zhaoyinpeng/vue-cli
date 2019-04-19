@@ -196,7 +196,7 @@ export default {
           type: "fill",
           source: "geoLayerSource",
           layout: {
-            
+            //布局
           },
           paint: {
             "fill-color": "#088",

@@ -5,6 +5,7 @@ import * as getters from './getters.js';
 import mutations from './mutations.js';
 import actions from './actions.js';
 import m1 from './modules/m1.js';
+import nav from './modules/nav.js';
 import createLogger from 'vuex/dist/logger'; // 修改日志
 
 vue.use(vuex);
@@ -17,7 +18,8 @@ export default new vuex.Store({
   mutations,
   actions,
   modules: {
-    m1
+    m1,
+    nav
   },
   plugins: debug ? [createLogger()] : [] // 开发环境下显示vuex的状态修改
 });
