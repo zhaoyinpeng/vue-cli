@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div id="header" :style="headerStyle">
     <logo></logo>
     {{title}}
     <vue-nav />
@@ -12,13 +12,28 @@ export default {
   name: "vueHeader",
   data() {
     return {
-      title: "vue-cli"
+      title: "vue-cli",
+      headerStyle: {}
     };
+  },
+  mounted() {
+    this.changeStyle();
   },
   components: {
     logo,
     vueNav
-  }
+  },
+  methods: {
+    //vue-bus改变样式
+    changeStyle(item) {
+      this.$bus.on("vue-style", style => {
+        this.headerStyle = {
+          backgroundColor: style.bgc,
+          color: style.color
+        };
+      });
+    }
+  },
 };
 </script>
 <style lang="less">
@@ -35,6 +50,7 @@ export default {
   z-index: 666;
   background-color: #fff;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
   .imgIcon {
     width: 40px;
     height: 40px;

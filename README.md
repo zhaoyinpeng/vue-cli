@@ -59,7 +59,7 @@ npm run dll
 1.vue实现简单轮播图效果（home.vue）
 
 #2019/4/18
-1.vue实现两中拖拽排序效果（home.vue)
+1.vue实现两种拖拽排序效果（home.vue)
 
 #2019/4/19
 1.添加公共头部样式和导航条
@@ -70,7 +70,6 @@ npm run dll
 #4.分模块懒加载css文件 webpack.prod.conf.js配置模块（探索中） 2019/4/9
 #5.合并加载多个css文件
 #6.尝试找其他懒加载js模块的方法
-#8.vue拖拽方法
 
 ```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

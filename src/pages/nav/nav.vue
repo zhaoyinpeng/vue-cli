@@ -1,6 +1,6 @@
 <!-- 导航模块 -->
 <template>
-  <div id="nav">
+  <div id="nav" :style="navStyle">
     <div v-for="(item, index) in navList" :key="index">
       <span @click="changeNav(item)">{{item.name}}</span>
     </div>
@@ -16,7 +16,8 @@ export default {
   data() {
     //这里存放数据
     return {
-      navList: []
+      navList: [],
+      navStyle: {}
     };
   },
   //监听属性 类似于data概念
@@ -35,7 +36,7 @@ export default {
   methods: {
     ...mapActions(["setNav"]),
     changeNav(item) {
-      let array = this.getIdList([], item.id);
+      // let array = this.getIdList([], item.id);
       this.$router.push(item.url);
     },
     getIdList(array, id) {
