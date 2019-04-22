@@ -1,8 +1,8 @@
 <template>
   <div>
     <pre>
-
-    模块模式:
+        具体内容在注释中：
+    <!-- 模块模式:
       在立即执行函数表达式中定义的变量和方法在外界是访问不到的,只能通过其向外部提供的接口,"有限制"地访问.通过函数作用域解决了属性和方法的封装问题.
       var Person = (function(){
           var name = "xin";
@@ -189,7 +189,7 @@
       })
       Event.fire('change', 'xin');
       Event.fire('click', 'xin');
-      Event.off('change');
+      Event.off('change'); -->
       
     </pre>
   </div>

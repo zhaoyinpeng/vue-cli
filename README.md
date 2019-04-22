@@ -63,6 +63,10 @@ npm run dll
 
 #2019/4/19
 1.添加公共头部样式和导航条
+
+#2019/4/22
+1.添加全局信息弹窗插件（plugins）
+2.全局mixin混合和组件mixin
 ```
 
 ```
@@ -70,6 +74,8 @@ npm run dll
 #4.分模块懒加载css文件 webpack.prod.conf.js配置模块（探索中） 2019/4/9
 #5.合并加载多个css文件
 #6.尝试找其他懒加载js模块的方法
+#7.vue指令
+#9.vue分页
 
 ```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
