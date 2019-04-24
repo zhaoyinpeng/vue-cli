@@ -6,6 +6,7 @@ import store from '../../store/index.js'
 import VueBus from 'vue-bus'
 import myMixin from '../../mixin/mixin.js'
 import vMsg from '../../plugins/msg.js'
+import 'babel-polyfill'
 
 Vue.use(VueRouter)
 Vue.use(VueBus)

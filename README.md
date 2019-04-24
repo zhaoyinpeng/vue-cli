@@ -67,6 +67,10 @@ npm run dll
 #2019/4/22
 1.添加全局信息弹窗插件（plugins）
 2.全局mixin混合和组件mixin
+
+#2019/4/24
+1.ie11中使用vue 需要babel-polyfill插件
+2.ie中下载图片，方法，在user模块中
 ```
 
 ```
