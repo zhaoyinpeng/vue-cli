@@ -71,6 +71,9 @@ npm run dll
 #2019/4/24
 1.ie11中使用vue 需要babel-polyfill插件
 2.ie中下载图片，方法，在user模块中
+
+#2019/4/25
+1.分页插件，about模块中
 ```
 
 ```
@@ -79,7 +82,6 @@ npm run dll
 #5.合并加载多个css文件
 #6.尝试找其他懒加载js模块的方法
 #7.vue指令
-#9.vue分页
 
 ```
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
