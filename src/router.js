@@ -49,6 +49,9 @@ const routes = [{
   component: resolve => require(['./pages/technologyTree.vue'], resolve),
   // 子路由
   children: [{
+    path: 'es6',
+    component: resolve => require(['./pages/technology/es6/index.vue'], resolve)
+  },{
     path: 'designModule',
     component: resolve => require(['./pages/technology/designModule.vue'], resolve)
   }, {

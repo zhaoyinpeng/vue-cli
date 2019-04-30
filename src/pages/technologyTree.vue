@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="technology-tree">
     <h1>{{title}}</h1>
     <ul class="tree">
       <li  v-for="item in items" :key="item.name">
@@ -15,6 +15,9 @@
       return {
         title : '科技树',
         items : [{
+          name:'es6',
+          url:'/technologyTree/es6'
+        },{
           name:'设计模式',
           url:'/technologyTree/designModule'
         },{
@@ -50,5 +53,8 @@
   }
 </script>
 <style>
-
+  .technology-tree{
+    min-width: 100%;
+    min-height: 100%;
+  }
 </style>
